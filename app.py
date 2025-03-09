@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta_aqui'  # Necesario para usar sesiones
 
 # Configuración de la base de datos PostgreSQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://usuario:contraseña@localhost:5432/nombre_de_la_base_de_datos'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:UFkrfqzhyiczVeORiHmZdaLCvcrwNlII@postgres.railway.internal:5432/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
