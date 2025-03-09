@@ -88,7 +88,9 @@ class MercaderiaFallada(db.Model):
     descripcion = db.Column(db.String(200), nullable=False)
 
 # Crear todas las tablas en la base de datos
-db.create_all()
+# Crea las tablas dentro del contexto de la aplicación
+with app.app_context():
+    db.create_all()
 
 # Proteger rutas que requieren autenticación
 def login_required(f):
