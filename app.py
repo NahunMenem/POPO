@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 import pytz
 from flask_migrate import Migrate
+import os
+
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta_aqui'  # Necesario para usar sesiones
@@ -638,4 +640,4 @@ def agregar_stock():
     return render_template('agregar_stock.html', productos=productos, busqueda=busqueda)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
