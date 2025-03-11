@@ -4,7 +4,8 @@ from datetime import datetime, timedelta
 import pytz
 from flask_migrate import Migrate
 import os
-
+from dotenv import load_dotenv
+load_dotenv()  # Carga las variables de entorno desde el archivo .env
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta_aqui'  # Necesario para usar sesiones
@@ -14,7 +15,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
 # Modelo para la tabla 'usuarios'
 class Usuario(db.Model):
