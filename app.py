@@ -5,13 +5,16 @@ import pytz
 from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
+from datetime import datetime, timedelta
+from sqlalchemy import func
+
 load_dotenv()  # Carga las variables de entorno desde el archivo .env
 
 app = Flask(__name__)
-app.secret_key = 'tu_clave_secreta_aqui'  # Necesario para usar sesiones
+
+app.secret_key = os.urandom(24)  # Genera una clave secreta aleatoria
 
 # Configuración de la base de datos PostgreSQL
-app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -110,6 +113,8 @@ def index():
     if 'username' in session:
         return redirect(url_for('inicio'))  # Redirige a la página principal del sistema
     return redirect(url_for('login'))  # Redirige al login si no está autenticado
+
+
 
 # Ruta para el login
 @app.route('/login', methods=['GET', 'POST'])
@@ -569,6 +574,10 @@ def mercaderia_fallada():
     ).join(Producto).order_by(MercaderiaFallada.fecha.desc()).all()
 
     return render_template('mercaderia_fallada.html', historial=historial)
+
+
+
+
 
 # Ruta para agregar stock
 @app.route('/agregar_stock', methods=['GET', 'POST'])
